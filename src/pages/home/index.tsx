@@ -1,10 +1,10 @@
 import { styled } from '../styles'
 
 const Button = styled('button', {
-  backgroundColor: '$gray400',
-  borderRadius: '9999px',
-  fontSize: '13px',
-  border: '0',
+  backgroundColor: '$green300',
+  borderRadius: 4,
+  border: 0,
+  padding: '4px 8px'
 })
 
 const Home = () => {
