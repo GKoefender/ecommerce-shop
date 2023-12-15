@@ -10,7 +10,8 @@
     "keen-slider": "^6.8.6",
     "next": "latest",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "stripe": "^14.9.0"
   },
   "engines": {
     "node": ">=18"
