@@ -1,6 +1,6 @@
 import { globalCss } from '@stitches/react';
 
-const globalStyles = globalCss({
+export const globalStyles = globalCss({
   '*': {
     margin: 0, padding: 0
   },
@@ -16,5 +16,3 @@ const globalStyles = globalCss({
     fontWeight: 400
   }
 })
-
-export default globalStyles

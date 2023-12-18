@@ -8,12 +8,14 @@ const HomeContainer = styled('div', {
   minHeight: 656
 })
 
-const Product = styled('a', {
+const Product = styled('div', {
   background: 'linear-gradient(180deg, #1ea483 0%, #7465d4 100%)',
   borderRadius: 8,
   cursor: 'pointer',
   position: 'relative',
   overflow: 'hidden',
+
+  height: 600,
 
   display: 'flex',
   alignItems: 'center',
@@ -24,6 +26,7 @@ const Product = styled('a', {
   },
 
   footer: {
+    fontFamily: 'Roboto',
     position: 'absolute',
     bottom: '0.25rem',
     left: '0.25rem',
@@ -42,7 +45,8 @@ const Product = styled('a', {
     transition: 'all 0.2s ease-in-out',
 
     strong: {
-      fontSize: '$lg'
+      fontSize: '$lg',
+      color: '$gray100'
     },
 
     span: {
