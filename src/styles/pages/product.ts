@@ -25,31 +25,27 @@ const ProductResume = styled('div', {
   fontFamily: 'Roboto',
   justifyContent: 'space-between',
 
-  div: {
-    display: 'flex',
-    flexDirection: 'column',
-    fontFamily: 'Roboto',
 
-    strong: {
-      // TODO verificar variaveis do fontsize
-      fontSize: '32px',
-      fontWeight: 'bold'
-    },
+  strong: {
+    // TODO verificar variaveis do fontsize
+    fontSize: '32px',
+    fontWeight: 'bold'
+  },
 
-    span: {
-      fontSize: '32px',
-      marginTop: '16px',
-      color: '$green300'
-    },
+  span: {
+    fontSize: '32px',
+    marginTop: '16px',
+    color: '$green300'
+  },
 
-    text: {
-      marginTop: 40,
-      fontSize: 18,
-      color: '$gray300'
-    }
+  text: {
+    marginTop: 40,
+    fontSize: 18,
+    color: '$gray300'
   },
 
   button: {
+    marginTop: 'auto',
     background: '$green300',
     color: '$white',
     padding: '20px 0 20px 0',

@@ -1,29 +1,75 @@
 import { useRouter } from 'next/router'
 import Image from 'next/image'
 import { ProductContainer, ProductImage, ProductResume } from '../../styles/pages/product'
+import { GetStaticPaths, GetStaticProps } from 'next';
+import { stripe } from '../../libs/stripe';
+import Stripe from 'stripe';
 
-const img = 'https://www.botoli.com.br/cdn/imagens/produtos/det/camiseta-puma-big-logo-tee-22-masculino-af24acfc51f3f2aee9254e6068c3412c.jpg'
+interface ProductProps {
+  product: {
+    id: string
+    name: string
+    imageUrl: string
+    price: string
+    description: string
+  }
+}
 
-export default function Product () {
-  const router = useRouter();
+export default function Product ({ product }: ProductProps) {
+  const { isFallback } = useRouter()
 
-  const { id } = router.query;
+  if(isFallback) {
+    return (
+      <h1>Loading . . .</h1>
+    )
+  }
+
   return (
     <ProductContainer>
       <ProductImage>
-        <Image src={''} alt="" width={520} height={480} />
+        <Image src={product.imageUrl} alt="" width={520} height={480} />
       </ProductImage>
 
       <ProductResume>
-        <div>
-          <strong>Camiseta Beyond the Limits</strong>
-          <span>R$ 79,90</span>
+        <strong>{product.name}</strong>
+        <span>{product.price}</span>
 
-          <text>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat quasi esse exercitationem perferendis aperiam corporis dolores velit. Cumque rem unde aut fugiat, libero nam accusantium quas soluta explicabo error ea.</text>
-        </div>
-
+        <text>{product.description}</text>
         <button>Comprar agora</button>
       </ProductResume>
-    </ProductContainer>
-  );
+    </ProductContainer>                     
+  )
+}
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  return {
+    paths: [],
+    fallback: true
+  }
+}
+
+export const getStaticProps: GetStaticProps<any, { id: string }> = async ({ params }) => {
+  const productId = params.id
+
+  const product = await stripe.products.retrieve(productId, {
+    expand: ['default_price']
+  })
+
+  const price = product.default_price as Stripe.Price
+  
+  return {
+    props: {
+      product:  {
+        id: product.id,
+        name: product.name,
+        imageUrl: product.images[0],
+        price: new Intl.NumberFormat('pt-BR', {
+          style: 'currency',
+          currency: 'BRL',
+        }).format(price.unit_amount / 100),
+        description: product.description
+      }
+    },
+    revalidate: 60 * 60 * 1 // 1 hour
+  }
 }
