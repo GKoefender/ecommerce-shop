@@ -53,6 +53,14 @@ const ProductResume = styled('div', {
     fontSize: 18,
     fontWeight: 'bold',
 
+    '&:disabled': {
+      opacity: 0.6,
+      cursor: 'not-allowed'
+    },
+
+    '&:not(:disabled):hover': {
+      backgroundColor: '$green300'
+    }
   }
 })
 
