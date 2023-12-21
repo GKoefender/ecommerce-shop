@@ -6,6 +6,7 @@ import { stripe } from '../../libs/stripe';
 import Stripe from 'stripe';
 import axios from 'axios';
 import { useState } from 'react';
+import Head from 'next/head';
 
 interface ProductProps {
   product: {
@@ -27,7 +28,8 @@ export default function Product ({ product }: ProductProps) {
       setIsCreatingCheckoutSession(true)
 
       const response = await axios.post('/api/checkout', {
-          priceId: product.defaultPriceId
+          priceId: product.defaultPriceId,
+          productId: product.id
       })
 
       const { checkoutUrl } = response.data
@@ -48,19 +50,24 @@ export default function Product ({ product }: ProductProps) {
   }
 
   return (
-    <ProductContainer>
-      <ProductImage>
-        <Image src={product.imageUrl} alt="" width={520} height={480} />
-      </ProductImage>
+    <>
+      <Head>
+        <title>{Product.name} | E-commerce Shop</title>
+      </Head>
+      <ProductContainer>
+        <ProductImage>
+          <Image src={product.imageUrl} alt="" width={520} height={480} />
+        </ProductImage>
 
-      <ProductResume>
-        <strong>{product.name}</strong>
-        <span>{product.price}</span>
+        <ProductResume>
+          <strong>{product.name}</strong>
+          <span>{product.price}</span>
 
-        <text>{product.description}</text>
-        <button disabled={isCreatingCheckoutSession} onClick={handleBuyProduct}>Comprar agora</button>
-      </ProductResume>
-    </ProductContainer>                     
+          <text>{product.description}</text>
+          <button disabled={isCreatingCheckoutSession} onClick={handleBuyProduct}>Comprar agora</button>
+        </ProductResume>        
+      </ProductContainer>      
+    </>
   )
 }
 
